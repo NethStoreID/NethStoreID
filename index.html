@@ -29,7 +29,6 @@
             --accent-color: #ef4444;
             --accent-hover: #dc2626;
             --accent-glow: rgba(239, 68, 68, 0.4);
-            --accent-bg-subtle: rgba(153, 0, 0, 0.2);
             --accent-border: rgba(153, 0, 0, 0.5);
             --accent-text: #f87171;
         }
@@ -110,7 +109,10 @@
                     <i class="fa-solid fa-plus"></i> Tambah Produk Baru
                 </button>
                 <button onclick="openSettingsModal()" class="bg-zinc-800 hover:bg-zinc-700 text-zinc-200 font-semibold px-3 py-1.5 rounded-lg border border-zinc-700 transition flex items-center gap-1.5">
-                    <i class="fa-solid fa-gear"></i> Pengaturan, Banner & Warna
+                    <i class="fa-solid fa-gear"></i> Pengaturan & Warna
+                </button>
+                <button onclick="exportDataForGitHub()" class="bg-emerald-800 hover:bg-emerald-700 text-white font-semibold px-3 py-1.5 rounded-lg border border-emerald-600 transition flex items-center gap-1.5" title="Salin data agar perubahan dilihat semua pengunjung">
+                    <i class="fa-solid fa-cloud-arrow-up"></i> Update Publik
                 </button>
             </div>
         </div>
@@ -502,7 +504,7 @@
             }
         };
 
-        // INITIAL DEFAULT DATA
+        // INITIAL DEFAULT DATA (DAPAT DIPERBARUI VIA EXPORT)
         const DEFAULT_SETTINGS = {
             waNumber: '6281234567890',
             adminPin: '1234',
@@ -562,6 +564,20 @@
         function saveProductsToStorage() { localStorage.setItem('neth_products', JSON.stringify(products)); }
         function saveSettingsToStorage() { localStorage.setItem('neth_settings', JSON.stringify(settings)); }
         function saveCartToStorage() { localStorage.setItem('neth_cart', JSON.stringify(cart)); }
+
+        // EXPORT DATA FOR GITHUB UPDATE
+        function exportDataForGitHub() {
+            const expSettings = JSON.stringify(settings, null, 4);
+            const expProducts = JSON.stringify(products, null, 4);
+            
+            const promptText = `// SALIN DAN SALIN KODE DI BAWAH INI KE GITHUB ANDA:\n\nconst DEFAULT_SETTINGS = ${expSettings};\n\nconst DEFAULT_PRODUCTS = ${expProducts};`;
+            
+            navigator.clipboard.writeText(promptText).then(() => {
+                alert('Berhasil disalin! Sekarang buka GitHub -> edit index.html -> ganti bagian DEFAULT_SETTINGS & DEFAULT_PRODUCTS dengan kode yang baru saja disalin agar pengunjung lain melihat tampilan baru yang sama.');
+            }).catch(() => {
+                prompt('Salin teks data di bawah ini manual:', promptText);
+            });
+        }
 
         // FILE UPLOAD HELPERS (BASE64)
         function handleProductFileUpload(e) {
