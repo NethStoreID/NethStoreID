@@ -14,10 +14,6 @@
                     colors: {
                         dark: '#121212',
                         card: '#18181b',
-                        red: '#800000',
-                        brightred: '#dc2626',
-                        crimson: '#990000',
-                        accent: '#ef4444',
                         border: '#27272a'
                     }
                 }
@@ -27,21 +23,35 @@
     <!-- FontAwesome & Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
+    <style id="theme-style">
+        :root {
+            --primary-gradient: linear-gradient(135deg, #990000 0%, #4a0000 100%);
+            --accent-color: #ef4444;
+            --accent-hover: #dc2626;
+            --accent-glow: rgba(239, 68, 68, 0.4);
+            --accent-bg-subtle: rgba(153, 0, 0, 0.2);
+            --accent-border: rgba(153, 0, 0, 0.5);
+            --accent-text: #f87171;
+        }
+
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #0d0d0d; color: #ffffff; }
         .bg-glass { background: rgba(24, 24, 27, 0.85); backdrop-filter: blur(12px); }
-        .red-gradient { background: linear-gradient(135deg, #990000 0%, #4a0000 100%); }
-        .red-border-glow:focus { box-shadow: 0 0 15px rgba(220, 38, 38, 0.4); border-color: #ef4444; }
+        .theme-gradient { background: var(--primary-gradient); }
+        .theme-border-glow:focus { box-shadow: 0 0 15px var(--accent-glow); border-color: var(--accent-color); }
+        .theme-btn { background-color: var(--accent-hover); }
+        .theme-btn:hover { filter: brightness(1.15); }
+        .theme-text { color: var(--accent-text); }
+        .theme-border { border-color: var(--accent-border); }
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between selection:bg-red-900 selection:text-white">
+<body class="min-h-screen flex flex-col justify-between selection:bg-zinc-800 selection:text-white">
 
     <!-- ANNOUNCEMENT BANNER -->
-    <div id="announcement-bar" class="bg-red-950 border-b border-red-900/50 text-red-300 text-xs py-1.5 px-4 text-center font-medium hidden">
-        <i class="fa-solid fa-bullhorn text-red-500 mr-1.5"></i>
-        <span id="announcement-text">Selamat datang di NethStoreID!</span>
+    <div id="announcement-bar" class="bg-zinc-950 border-b theme-border text-xs py-1.5 px-4 text-center font-medium hidden">
+        <i class="fa-solid fa-bullhorn theme-text mr-1.5"></i>
+        <span id="announcement-text" class="text-zinc-300">Selamat datang di NethStoreID!</span>
     </div>
 
     <!-- HEADER / NAVIGATION -->
@@ -49,13 +59,13 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             <!-- Logo & Secret Trigger (Ketuk 5x di HP / Ctrl+Shift+A di PC) -->
             <div class="flex items-center gap-3 cursor-pointer select-none" id="logo-trigger" title="NethStoreID">
-                <div id="header-logo-container" class="w-11 h-11 rounded-xl red-gradient flex items-center justify-center border border-red-500/30 shadow-lg shadow-red-950/50 overflow-hidden">
+                <div id="header-logo-container" class="w-11 h-11 rounded-xl theme-gradient flex items-center justify-center border theme-border shadow-lg overflow-hidden">
                     <i id="header-logo-icon" class="fa-solid fa-store text-xl text-white"></i>
                     <img id="header-logo-img" src="" alt="Logo" class="w-full h-full object-cover hidden">
                 </div>
                 <div>
-                    <h1 class="text-2xl font-extrabold tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-white via-zinc-200 to-red-500">
-                        NethStore<span class="text-red-600">ID</span>
+                    <h1 class="text-2xl font-extrabold tracking-wider text-white">
+                        NethStore<span class="theme-text">ID</span>
                     </h1>
                     <p class="text-[10px] text-zinc-400 font-medium tracking-widest uppercase">Trusted General Store</p>
                 </div>
@@ -67,12 +77,12 @@
                 <div class="hidden md:flex items-center relative w-64">
                     <i class="fa-solid fa-magnifying-glass absolute left-3 text-zinc-500 text-sm"></i>
                     <input type="text" id="search-input" onkeyup="filterProducts()" placeholder="Cari produk..." 
-                        class="w-full bg-zinc-900/90 border border-zinc-800 text-sm rounded-xl pl-9 pr-4 py-2 text-zinc-200 placeholder-zinc-500 focus:outline-none red-border-glow transition-all">
+                        class="w-full bg-zinc-900/90 border border-zinc-800 text-sm rounded-xl pl-9 pr-4 py-2 text-zinc-200 placeholder-zinc-500 focus:outline-none theme-border-glow transition-all">
                 </div>
 
                 <!-- Admin Active Status Badge -->
-                <div id="admin-badge" class="hidden items-center gap-2 bg-red-950/60 border border-red-600/50 px-3 py-1.5 rounded-xl text-xs font-semibold text-red-400">
-                    <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+                <div id="admin-badge" class="hidden items-center gap-2 bg-zinc-900 border theme-border px-3 py-1.5 rounded-xl text-xs font-semibold theme-text">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                     <span>ADMIN MODE</span>
                     <button onclick="lockAdmin()" class="ml-1 text-zinc-400 hover:text-white" title="Keluar Mode Admin">
                         <i class="fa-solid fa-right-from-bracket"></i>
@@ -81,26 +91,26 @@
 
                 <!-- Cart Button -->
                 <button onclick="toggleCartModal()" class="relative bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 p-2.5 rounded-xl text-zinc-200 transition-all flex items-center justify-center">
-                    <i class="fa-solid fa-cart-shopping text-lg text-red-500"></i>
-                    <span id="cart-count" class="absolute -top-1.5 -right-1.5 bg-red-600 text-white text-[11px] font-bold rounded-full w-5 h-5 flex items-center justify-center border-2 border-zinc-950">0</span>
+                    <i class="fa-solid fa-cart-shopping text-lg theme-text"></i>
+                    <span id="cart-count" class="absolute -top-1.5 -right-1.5 theme-btn text-white text-[11px] font-bold rounded-full w-5 h-5 flex items-center justify-center border-2 border-zinc-950">0</span>
                 </button>
             </div>
         </div>
     </header>
 
     <!-- ADMIN BAR (SHOWN ONLY WHEN UNLOCKED) -->
-    <div id="admin-top-bar" class="hidden bg-gradient-to-r from-red-950 via-zinc-900 to-red-950 border-b border-red-900/50 py-2.5 px-4">
+    <div id="admin-top-bar" class="hidden bg-zinc-950 border-b theme-border py-2.5 px-4">
         <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3 text-xs">
             <div class="flex items-center gap-2 text-zinc-300">
-                <i class="fa-solid fa-user-shield text-red-500"></i>
+                <i class="fa-solid fa-user-shield theme-text"></i>
                 <span>Panel Pengelola Aktif</span>
             </div>
             <div class="flex items-center gap-2">
-                <button onclick="openProductModal()" class="bg-red-600 hover:bg-red-700 text-white font-semibold px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 shadow-md">
+                <button onclick="openProductModal()" class="theme-btn text-white font-semibold px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 shadow-md">
                     <i class="fa-solid fa-plus"></i> Tambah Produk Baru
                 </button>
                 <button onclick="openSettingsModal()" class="bg-zinc-800 hover:bg-zinc-700 text-zinc-200 font-semibold px-3 py-1.5 rounded-lg border border-zinc-700 transition flex items-center gap-1.5">
-                    <i class="fa-solid fa-gear"></i> Pengaturan & Logo Toko
+                    <i class="fa-solid fa-gear"></i> Pengaturan, Banner & Warna
                 </button>
             </div>
         </div>
@@ -109,23 +119,25 @@
     <!-- MAIN CONTENT -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full">
         <!-- Hero Banner -->
-        <section class="relative rounded-2xl overflow-hidden mb-10 border border-zinc-800/80 shadow-2xl red-gradient">
-            <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-red-600/20 via-transparent to-transparent"></div>
-            <div class="relative z-10 p-6 sm:p-10 md:p-12 flex flex-col md:flex-row items-center justify-between gap-6">
+        <section id="hero-banner" class="relative rounded-2xl overflow-hidden mb-10 border border-zinc-800/80 shadow-2xl theme-gradient min-h-[220px] flex items-center">
+            <div id="banner-overlay" class="absolute inset-0 bg-black/40 z-0"></div>
+            <img id="banner-bg-img" src="" class="absolute inset-0 w-full h-full object-cover hidden z-0">
+            
+            <div class="relative z-10 p-6 sm:p-10 md:p-12 flex flex-col md:flex-row items-center justify-between gap-6 w-full">
                 <div class="space-y-4 text-center md:text-left max-w-xl">
-                    <span class="inline-block px-3 py-1 bg-red-950/80 border border-red-500/40 text-red-400 text-xs font-semibold rounded-full uppercase tracking-wider">
+                    <span class="inline-block px-3 py-1 bg-black/60 border border-white/20 text-white text-xs font-semibold rounded-full uppercase tracking-wider backdrop-blur-md">
                         Official Store
                     </span>
-                    <h2 class="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight">
-                        Selamat Datang di <span class="text-red-500">NethStoreID</span>
+                    <h2 id="hero-title" class="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight">
+                        Selamat Datang di <span class="theme-text">NethStoreID</span>
                     </h2>
-                    <p class="text-zinc-300 text-sm sm:text-base leading-relaxed">
+                    <p id="hero-desc" class="text-zinc-200 text-sm sm:text-base leading-relaxed">
                         Penyedia kebutuhan digital, item game, dan voucher general terpercaya dengan proses kilat dan harga terjangkau!
                     </p>
                 </div>
                 <div class="w-full md:w-auto flex justify-center">
-                    <div id="hero-logo-box" class="w-32 h-32 sm:w-40 sm:h-40 rounded-2xl bg-zinc-950/60 border border-red-500/30 flex items-center justify-center p-2 backdrop-blur-md shadow-inner overflow-hidden">
-                        <i id="hero-logo-icon" class="fa-solid fa-bag-shopping text-6xl text-red-500"></i>
+                    <div id="hero-logo-box" class="w-32 h-32 sm:w-40 sm:h-40 rounded-2xl bg-zinc-950/70 border border-white/20 flex items-center justify-center p-2 backdrop-blur-md shadow-inner overflow-hidden">
+                        <i id="hero-logo-icon" class="fa-solid fa-bag-shopping text-6xl theme-text"></i>
                         <img id="hero-logo-img" src="" alt="Logo Toko" class="w-full h-full object-cover rounded-xl hidden">
                     </div>
                 </div>
@@ -137,7 +149,7 @@
             <div class="relative w-full">
                 <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-zinc-500 text-sm"></i>
                 <input type="text" id="search-input-mobile" onkeyup="filterProductsMobile()" placeholder="Cari produk..." 
-                    class="w-full bg-zinc-900 border border-zinc-800 text-sm rounded-xl pl-10 pr-4 py-2.5 text-zinc-200 placeholder-zinc-500 focus:outline-none red-border-glow">
+                    class="w-full bg-zinc-900 border border-zinc-800 text-sm rounded-xl pl-10 pr-4 py-2.5 text-zinc-200 placeholder-zinc-500 focus:outline-none theme-border-glow">
             </div>
         </div>
 
@@ -149,7 +161,7 @@
         <!-- Products Grid -->
         <div class="flex items-center justify-between mb-6">
             <h3 class="text-xl font-bold text-white flex items-center gap-2">
-                <i class="fa-solid fa-boxes-stacked text-red-500"></i> Katalog Produk
+                <i class="fa-solid fa-boxes-stacked theme-text"></i> Katalog Produk
             </h3>
             <span id="product-count" class="text-xs text-zinc-400">Menampilkan 0 Produk</span>
         </div>
@@ -172,17 +184,17 @@
             <!-- Kolom 1: Profil Toko -->
             <div class="space-y-3">
                 <div class="flex items-center gap-2">
-                    <div id="footer-logo-container" class="w-7 h-7 rounded-lg red-gradient flex items-center justify-center overflow-hidden">
+                    <div id="footer-logo-container" class="w-7 h-7 rounded-lg theme-gradient flex items-center justify-center overflow-hidden">
                         <i id="footer-logo-icon" class="fa-solid fa-store text-white text-xs"></i>
                         <img id="footer-logo-img" src="" alt="Logo" class="w-full h-full object-cover hidden">
                     </div>
-                    <span class="text-white font-extrabold text-base">NethStore<span class="text-red-600">ID</span></span>
+                    <span class="text-white font-extrabold text-base">NethStore<span class="theme-text">ID</span></span>
                 </div>
                 <p class="text-zinc-400 text-xs leading-relaxed">
                     Penyedia kebutuhan digital, item game, dan voucher terpercaya. Layanan cepat, aman, dan bergaransi resmi.
                 </p>
                 <div class="text-zinc-400 text-[11px] flex items-center gap-1.5">
-                    <i class="fa-regular fa-clock text-red-500"></i>
+                    <i class="fa-regular fa-clock theme-text"></i>
                     <span>Jam Operasional: <strong id="display-hours" class="text-zinc-200">09:00 - 22:00 WIB</strong></span>
                 </div>
             </div>
@@ -192,13 +204,13 @@
                 <h4 class="text-white font-bold text-sm tracking-wider uppercase border-b border-zinc-800 pb-1 inline-block">Hubungi Kami</h4>
                 <ul class="space-y-2 text-xs">
                     <li>
-                        <a id="display-wa-link" href="#" target="_blank" class="hover:text-red-500 transition flex items-center gap-2">
+                        <a id="display-wa-link" href="#" target="_blank" class="hover:text-white transition flex items-center gap-2">
                             <i class="fa-brands fa-whatsapp text-emerald-500 text-sm"></i> WhatsApp: <span id="display-wa-text">+62 812-3456-7890</span>
                         </a>
                     </li>
                     <li>
-                        <a id="display-email-link" href="#" class="hover:text-red-500 transition flex items-center gap-2">
-                            <i class="fa-solid fa-envelope text-red-500 text-sm"></i> Email: <span id="display-email-text">support@nethstoreid.com</span>
+                        <a id="display-email-link" href="#" class="hover:text-white transition flex items-center gap-2">
+                            <i class="fa-solid fa-envelope theme-text text-sm"></i> Email: <span id="display-email-text">support@nethstoreid.com</span>
                         </a>
                     </li>
                 </ul>
@@ -209,13 +221,13 @@
                 <h4 class="text-white font-bold text-sm tracking-wider uppercase border-b border-zinc-800 pb-1 inline-block">Media Sosial</h4>
                 <p class="text-zinc-400 text-xs">Ikuti media sosial resmi kami untuk update terbaru & promo:</p>
                 <div class="flex items-center gap-3 pt-1">
-                    <a id="display-ig-link" href="#" target="_blank" class="w-9 h-9 rounded-xl bg-zinc-900 border border-zinc-800 hover:border-red-600 hover:bg-red-950/50 flex items-center justify-center text-zinc-300 hover:text-white transition" title="Instagram">
+                    <a id="display-ig-link" href="#" target="_blank" class="w-9 h-9 rounded-xl bg-zinc-900 border border-zinc-800 hover:border-zinc-700 flex items-center justify-center text-zinc-300 hover:text-white transition" title="Instagram">
                         <i class="fa-brands fa-instagram text-base"></i>
                     </a>
-                    <a id="display-tiktok-link" href="#" target="_blank" class="w-9 h-9 rounded-xl bg-zinc-900 border border-zinc-800 hover:border-red-600 hover:bg-red-950/50 flex items-center justify-center text-zinc-300 hover:text-white transition" title="TikTok">
+                    <a id="display-tiktok-link" href="#" target="_blank" class="w-9 h-9 rounded-xl bg-zinc-900 border border-zinc-800 hover:border-zinc-700 flex items-center justify-center text-zinc-300 hover:text-white transition" title="TikTok">
                         <i class="fa-brands fa-tiktok text-base"></i>
                     </a>
-                    <a id="display-telegram-link" href="#" target="_blank" class="w-9 h-9 rounded-xl bg-zinc-900 border border-zinc-800 hover:border-red-600 hover:bg-red-950/50 flex items-center justify-center text-zinc-300 hover:text-white transition" title="Telegram">
+                    <a id="display-telegram-link" href="#" target="_blank" class="w-9 h-9 rounded-xl bg-zinc-900 border border-zinc-800 hover:border-zinc-700 flex items-center justify-center text-zinc-300 hover:text-white transition" title="Telegram">
                         <i class="fa-brands fa-telegram text-base"></i>
                     </a>
                 </div>
@@ -235,7 +247,7 @@
                 <i class="fa-solid fa-xmark text-lg"></i>
             </button>
             <div class="text-center space-y-1">
-                <div class="w-12 h-12 bg-red-950/80 border border-red-500/30 rounded-xl flex items-center justify-center mx-auto text-red-500 mb-2">
+                <div class="w-12 h-12 bg-zinc-950 border theme-border rounded-xl flex items-center justify-center mx-auto theme-text mb-2">
                     <i class="fa-solid fa-key text-xl"></i>
                 </div>
                 <h3 class="text-lg font-bold text-white">Akses Pengelola</h3>
@@ -244,9 +256,9 @@
             <form onsubmit="handleAdminLogin(event)" class="space-y-4">
                 <div>
                     <input type="password" id="admin-pin-input" placeholder="Masukkan PIN" required maxlength="10"
-                        class="w-full text-center tracking-widest text-lg font-mono bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:outline-none red-border-glow">
+                        class="w-full text-center tracking-widest text-lg font-mono bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:outline-none theme-border-glow">
                 </div>
-                <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-xl transition shadow-lg shadow-red-950/50">
+                <button type="submit" class="w-full theme-btn text-white font-bold py-3 rounded-xl transition shadow-lg">
                     Masuk
                 </button>
             </form>
@@ -264,20 +276,20 @@
                 <input type="hidden" id="prod-id">
                 <div>
                     <label class="block text-zinc-400 font-semibold mb-1">Nama Produk</label>
-                    <input type="text" id="prod-name" required placeholder="Contoh: Diamond Roblox 100" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none red-border-glow">
+                    <input type="text" id="prod-name" required placeholder="Contoh: Diamond Roblox 100" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none theme-border-glow">
                 </div>
                 <div>
                     <label class="block text-zinc-400 font-semibold mb-1">Kategori</label>
-                    <input type="text" id="prod-category" required placeholder="Contoh: Game, TopUp, E-Money" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none red-border-glow">
+                    <input type="text" id="prod-category" required placeholder="Contoh: Game, TopUp, E-Money" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none theme-border-glow">
                 </div>
                 <div class="grid grid-cols-2 gap-3">
                     <div>
                         <label class="block text-zinc-400 font-semibold mb-1">Harga (Rp)</label>
-                        <input type="number" id="prod-price" required placeholder="15000" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none red-border-glow">
+                        <input type="number" id="prod-price" required placeholder="15000" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none theme-border-glow">
                     </div>
                     <div>
                         <label class="block text-zinc-400 font-semibold mb-1">Status Stok</label>
-                        <select id="prod-stock" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none red-border-glow">
+                        <select id="prod-stock" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none theme-border-glow">
                             <option value="true">Tersedia (Ready)</option>
                             <option value="false">Habis (Out of Stock)</option>
                         </select>
@@ -289,12 +301,12 @@
                     <label class="block text-zinc-300 font-bold mb-1">Foto / Gambar Produk</label>
                     <div>
                         <label class="block text-[10px] text-zinc-400 mb-1">Upload dari Galeri HP/PC:</label>
-                        <input type="file" id="prod-file-input" accept="image/*" onchange="handleProductFileUpload(event)" class="w-full text-[11px] text-zinc-400 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-red-950 file:text-red-300 hover:file:bg-red-900 cursor-pointer">
+                        <input type="file" id="prod-file-input" accept="image/*" onchange="handleProductFileUpload(event)" class="w-full text-[11px] text-zinc-400 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-zinc-800 file:text-zinc-200 cursor-pointer">
                     </div>
                     <div class="text-center text-[10px] text-zinc-600 font-bold uppercase">-- ATAU --</div>
                     <div>
                         <label class="block text-[10px] text-zinc-400 mb-1">Masukkan Link URL Gambar:</label>
-                        <input type="url" id="prod-image" placeholder="https://example.com/gambar.jpg" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none red-border-glow">
+                        <input type="url" id="prod-image" placeholder="https://example.com/gambar.jpg" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none theme-border-glow">
                     </div>
                     <!-- Image Preview -->
                     <div id="prod-preview-box" class="hidden mt-2 pt-2 border-t border-zinc-800 flex items-center gap-2">
@@ -305,74 +317,108 @@
 
                 <div>
                     <label class="block text-zinc-400 font-semibold mb-1">Deskripsi Singkat</label>
-                    <textarea id="prod-desc" rows="2" placeholder="Detail singkat tentang produk..." class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none red-border-glow"></textarea>
+                    <textarea id="prod-desc" rows="2" placeholder="Detail singkat tentang produk..." class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none theme-border-glow"></textarea>
                 </div>
                 <div class="pt-2 flex gap-2">
                     <button type="button" onclick="closeProductModal()" class="w-1/2 bg-zinc-800 hover:bg-zinc-700 text-zinc-300 font-semibold py-2.5 rounded-xl">Batal</button>
-                    <button type="submit" class="w-1/2 bg-red-600 hover:bg-red-700 text-white font-semibold py-2.5 rounded-xl">Simpan Produk</button>
+                    <button type="submit" class="w-1/2 theme-btn text-white font-semibold py-2.5 rounded-xl">Simpan Produk</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- MODAL 3: STORE SETTINGS & LOGO -->
+    <!-- MODAL 3: STORE SETTINGS, BANNER & PALETTE -->
     <div id="settings-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
         <div class="bg-zinc-900 border border-zinc-800 rounded-2xl w-full max-w-md p-6 space-y-4 shadow-2xl max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center border-b border-zinc-800 pb-3">
-                <h3 class="font-bold text-white text-base">Pengaturan & Logo Toko</h3>
+                <h3 class="font-bold text-white text-base">Pengaturan, Banner & Warna</h3>
                 <button onclick="closeSettingsModal()" class="text-zinc-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            <form onsubmit="saveSettings(event)" class="space-y-3 text-xs">
+            <form onsubmit="saveSettings(event)" class="space-y-4 text-xs">
                 
+                <!-- THEME COLOR PALETTE CHOICE -->
+                <div class="space-y-2 border border-zinc-800 p-3 rounded-xl bg-zinc-950/50">
+                    <label class="block text-zinc-300 font-bold">Warna Tema Tampilan</label>
+                    <select id="set-theme" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none theme-border-glow">
+                        <option value="darkred">Dark Red & Crimson (Default)</option>
+                        <option value="blue">Cyberpunk Neon Blue</option>
+                        <option value="emerald">Emerald Green</option>
+                        <option value="purple">Royal Purple / Violet</option>
+                        <option value="gold">Amber Gold</option>
+                    </select>
+                </div>
+
+                <!-- BANNER SETTINGS -->
+                <div class="space-y-2 border border-zinc-800 p-3 rounded-xl bg-zinc-950/50">
+                    <label class="block text-zinc-300 font-bold">Banner Hero Utama</label>
+                    <div>
+                        <label class="block text-[10px] text-zinc-400 mb-1">Judul Banner:</label>
+                        <input type="text" id="set-hero-title" placeholder="Selamat Datang di NethStoreID" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none theme-border-glow">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] text-zinc-400 mb-1">Deskripsi Banner:</label>
+                        <textarea id="set-hero-desc" rows="2" placeholder="Deskripsi di bawah judul..." class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none theme-border-glow"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] text-zinc-400 mb-1">Upload Foto Background Banner:</label>
+                        <input type="file" id="banner-file-input" accept="image/*" onchange="handleBannerFileUpload(event)" class="w-full text-[11px] text-zinc-400 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-zinc-800 file:text-zinc-200 cursor-pointer">
+                    </div>
+                    <div class="text-center text-[10px] text-zinc-600 font-bold uppercase">-- ATAU --</div>
+                    <div>
+                        <label class="block text-[10px] text-zinc-400 mb-1">URL Link Gambar Background Banner:</label>
+                        <input type="url" id="set-banner-url" placeholder="https://example.com/banner.jpg" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none theme-border-glow">
+                    </div>
+                </div>
+
                 <!-- LOGO UPLOAD / URL SECTION -->
                 <div class="space-y-2 border border-zinc-800 p-3 rounded-xl bg-zinc-950/50">
                     <label class="block text-zinc-300 font-bold">Logo Toko</label>
                     <div>
-                        <label class="block text-[10px] text-zinc-400 mb-1">Upload File Logo dari HP/PC:</label>
-                        <input type="file" id="logo-file-input" accept="image/*" onchange="handleLogoFileUpload(event)" class="w-full text-[11px] text-zinc-400 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-red-950 file:text-red-300 hover:file:bg-red-900 cursor-pointer">
+                        <label class="block text-[10px] text-zinc-400 mb-1">Upload File Logo:</label>
+                        <input type="file" id="logo-file-input" accept="image/*" onchange="handleLogoFileUpload(event)" class="w-full text-[11px] text-zinc-400 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-zinc-800 file:text-zinc-200 cursor-pointer">
                     </div>
                     <div class="text-center text-[10px] text-zinc-600 font-bold uppercase">-- ATAU --</div>
                     <div>
                         <label class="block text-[10px] text-zinc-400 mb-1">URL Link Logo Gambar:</label>
-                        <input type="url" id="set-logo-url" placeholder="https://example.com/logo.png" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none red-border-glow">
+                        <input type="url" id="set-logo-url" placeholder="https://example.com/logo.png" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none theme-border-glow">
                     </div>
                 </div>
 
                 <div>
                     <label class="block text-zinc-400 font-semibold mb-1">Pesan Pengumuman Bar (Opsional)</label>
-                    <input type="text" id="set-announcement" placeholder="Contoh: Promo Diskon 10% Semua Item Game!" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none red-border-glow">
+                    <input type="text" id="set-announcement" placeholder="Contoh: Promo Diskon 10% Semua Item Game!" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none theme-border-glow">
                 </div>
                 <div>
                     <label class="block text-zinc-400 font-semibold mb-1">Nomor WhatsApp Admin (Awal 62)</label>
-                    <input type="text" id="set-wa" required placeholder="628123456789" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none red-border-glow">
+                    <input type="text" id="set-wa" required placeholder="628123456789" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none theme-border-glow">
                 </div>
                 <div>
                     <label class="block text-zinc-400 font-semibold mb-1">Jam Operasional</label>
-                    <input type="text" id="set-hours" placeholder="09:00 - 22:00 WIB" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none red-border-glow">
+                    <input type="text" id="set-hours" placeholder="09:00 - 22:00 WIB" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none theme-border-glow">
                 </div>
                 <div>
                     <label class="block text-zinc-400 font-semibold mb-1">Email Toko</label>
-                    <input type="email" id="set-email" placeholder="support@nethstoreid.com" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none red-border-glow">
+                    <input type="email" id="set-email" placeholder="support@nethstoreid.com" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none theme-border-glow">
                 </div>
                 <div>
                     <label class="block text-zinc-400 font-semibold mb-1">Username / Link Instagram</label>
-                    <input type="text" id="set-ig" placeholder="username_instagram" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none red-border-glow">
+                    <input type="text" id="set-ig" placeholder="username_instagram" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none theme-border-glow">
                 </div>
                 <div>
                     <label class="block text-zinc-400 font-semibold mb-1">Username / Link TikTok</label>
-                    <input type="text" id="set-tiktok" placeholder="username_tiktok" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none red-border-glow">
+                    <input type="text" id="set-tiktok" placeholder="username_tiktok" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none theme-border-glow">
                 </div>
                 <div>
                     <label class="block text-zinc-400 font-semibold mb-1">Username / Link Telegram</label>
-                    <input type="text" id="set-telegram" placeholder="username_telegram" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none red-border-glow">
+                    <input type="text" id="set-telegram" placeholder="username_telegram" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none theme-border-glow">
                 </div>
                 <div class="border-t border-zinc-800 pt-3">
                     <label class="block text-zinc-400 font-semibold mb-1">Ubah PIN Admin Rahasia</label>
-                    <input type="password" id="set-pin" required placeholder="PIN Baru" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none red-border-glow">
+                    <input type="password" id="set-pin" required placeholder="PIN Baru" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none theme-border-glow">
                 </div>
                 <div class="pt-2 flex gap-2">
                     <button type="button" onclick="closeSettingsModal()" class="w-1/2 bg-zinc-800 hover:bg-zinc-700 text-zinc-300 font-semibold py-2.5 rounded-xl">Batal</button>
-                    <button type="submit" class="w-1/2 bg-red-600 hover:bg-red-700 text-white font-semibold py-2.5 rounded-xl">Simpan Semua</button>
+                    <button type="submit" class="w-1/2 theme-btn text-white font-semibold py-2.5 rounded-xl">Simpan Semua</button>
                 </div>
             </form>
         </div>
@@ -383,7 +429,7 @@
         <div class="bg-zinc-900 border border-zinc-800 rounded-2xl w-full max-w-lg p-6 space-y-4 shadow-2xl flex flex-col max-h-[90vh]">
             <div class="flex justify-between items-center border-b border-zinc-800 pb-3">
                 <h3 class="font-bold text-white text-base flex items-center gap-2">
-                    <i class="fa-solid fa-cart-shopping text-red-500"></i> Keranjang Belanja
+                    <i class="fa-solid fa-cart-shopping theme-text"></i> Keranjang Belanja
                 </h3>
                 <button onclick="toggleCartModal()" class="text-zinc-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
             </div>
@@ -397,11 +443,11 @@
             <div class="border-t border-zinc-800 pt-3 space-y-3 text-xs">
                 <div class="flex justify-between items-center text-sm font-bold">
                     <span class="text-zinc-400">Total Pembayaran:</span>
-                    <span id="cart-total-price" class="text-red-500 text-lg">Rp 0</span>
+                    <span id="cart-total-price" class="theme-text text-lg">Rp 0</span>
                 </div>
                 <div>
                     <label class="block text-zinc-400 mb-1">Catatan Pesanan / Username (Opsional)</label>
-                    <input type="text" id="checkout-note" placeholder="Contoh: Username Game / ID Akun" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none red-border-glow">
+                    <input type="text" id="checkout-note" placeholder="Contoh: Username Game / ID Akun" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none theme-border-glow">
                 </div>
                 <button onclick="processWhatsAppCheckout()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl transition flex items-center justify-center gap-2 shadow-lg shadow-emerald-950/50">
                     <i class="fa-brands fa-whatsapp text-lg"></i> Beli Sekarang Via WhatsApp
@@ -412,6 +458,50 @@
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
+        // THEMES PALETTE DEFINITION
+        const THEMES = {
+            darkred: {
+                gradient: 'linear-gradient(135deg, #990000 0%, #4a0000 100%)',
+                accent: '#ef4444',
+                hover: '#dc2626',
+                glow: 'rgba(239, 68, 68, 0.4)',
+                border: 'rgba(153, 0, 0, 0.5)',
+                text: '#f87171'
+            },
+            blue: {
+                gradient: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
+                accent: '#38bdf8',
+                hover: '#0284c7',
+                glow: 'rgba(56, 189, 248, 0.4)',
+                border: 'rgba(2, 132, 199, 0.5)',
+                text: '#38bdf8'
+            },
+            emerald: {
+                gradient: 'linear-gradient(135deg, #059669 0%, #064e3b 100%)',
+                accent: '#34d399',
+                hover: '#059669',
+                glow: 'rgba(52, 211, 153, 0.4)',
+                border: 'rgba(5, 150, 105, 0.5)',
+                text: '#34d399'
+            },
+            purple: {
+                gradient: 'linear-gradient(135deg, #7c3aed 0%, #4c1d95 100%)',
+                accent: '#a78bfa',
+                hover: '#7c3aed',
+                glow: 'rgba(167, 139, 250, 0.4)',
+                border: 'rgba(124, 58, 237, 0.5)',
+                text: '#a78bfa'
+            },
+            gold: {
+                gradient: 'linear-gradient(135deg, #d97706 0%, #78350f 100%)',
+                accent: '#fbbf24',
+                hover: '#d97706',
+                glow: 'rgba(251, 191, 36, 0.4)',
+                border: 'rgba(217, 119, 6, 0.5)',
+                text: '#fbbf24'
+            }
+        };
+
         // INITIAL DEFAULT DATA
         const DEFAULT_SETTINGS = {
             waNumber: '6281234567890',
@@ -422,6 +512,10 @@
             tiktok: '',
             telegram: '',
             logoUrl: '',
+            bannerUrl: '',
+            heroTitle: 'Selamat Datang di NethStoreID',
+            heroDesc: 'Penyedia kebutuhan digital, item game, dan voucher general terpercaya dengan proses kilat dan harga terjangkau!',
+            theme: 'darkred',
             announcement: 'Promo Spesial! Dapatkan harga termurah untuk setiap produk digital.'
         };
 
@@ -489,15 +583,53 @@
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(evt) {
-                    const base64 = evt.target.result;
-                    document.getElementById('set-logo-url').value = base64;
+                    document.getElementById('set-logo-url').value = evt.target.result;
                 };
                 reader.readAsDataURL(file);
             }
         }
 
-        // RENDER LOGO & SETTINGS TO UI
+        function handleBannerFileUpload(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(evt) {
+                    document.getElementById('set-banner-url').value = evt.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // APPLY THEME PALETTE TO DYNAMIC CSS
+        function applyTheme(themeKey) {
+            const t = THEMES[themeKey] || THEMES.darkred;
+            const styleTag = document.getElementById('theme-style');
+            styleTag.innerHTML = `
+                :root {
+                    --primary-gradient: ${t.gradient};
+                    --accent-color: ${t.accent};
+                    --accent-hover: ${t.hover};
+                    --accent-glow: ${t.glow};
+                    --accent-border: ${t.border};
+                    --accent-text: ${t.text};
+                }
+                body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #0d0d0d; color: #ffffff; }
+                .bg-glass { background: rgba(24, 24, 27, 0.85); backdrop-filter: blur(12px); }
+                .theme-gradient { background: var(--primary-gradient); }
+                .theme-border-glow:focus { box-shadow: 0 0 15px var(--accent-glow); border-color: var(--accent-color); }
+                .theme-btn { background-color: var(--accent-hover); }
+                .theme-btn:hover { filter: brightness(1.15); }
+                .theme-text { color: var(--accent-text); }
+                .theme-border { border-color: var(--accent-border); }
+                .hide-scrollbar::-webkit-scrollbar { display: none; }
+                .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+            `;
+        }
+
+        // RENDER LOGO, BANNER & SETTINGS TO UI
         function applySettingsToUI() {
+            applyTheme(settings.theme || 'darkred');
+
             // Announcement
             const annBar = document.getElementById('announcement-bar');
             const annText = document.getElementById('announcement-text');
@@ -506,6 +638,18 @@
                 annBar.classList.remove('hidden');
             } else {
                 annBar.classList.add('hidden');
+            }
+
+            // Banner Hero Text & Image
+            document.getElementById('hero-title').innerHTML = settings.heroTitle ? settings.heroTitle.replace('NethStoreID', '<span class="theme-text">NethStoreID</span>') : 'Selamat Datang di <span class="theme-text">NethStoreID</span>';
+            document.getElementById('hero-desc').innerText = settings.heroDesc || 'Penyedia kebutuhan digital, item game, dan voucher general terpercaya!';
+
+            const bannerBg = document.getElementById('banner-bg-img');
+            if (settings.bannerUrl && settings.bannerUrl.trim() !== '') {
+                bannerBg.src = settings.bannerUrl;
+                bannerBg.classList.remove('hidden');
+            } else {
+                bannerBg.classList.add('hidden');
             }
 
             // Logo Rendering
@@ -559,7 +703,7 @@
             const categories = ['All', ...new Set(products.map(p => p.category))];
             const pillsContainer = document.getElementById('category-pills');
             pillsContainer.innerHTML = categories.map(cat => `
-                <button onclick="selectCategory('${cat}')" class="px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${selectedCategory === cat ? 'bg-red-600 text-white shadow-md shadow-red-950/50' : 'bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white hover:bg-zinc-800'}">
+                <button onclick="selectCategory('${cat}')" class="px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${selectedCategory === cat ? 'theme-btn text-white shadow-md' : 'bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white hover:bg-zinc-800'}">
                     ${cat === 'All' ? 'Semua Produk' : cat}
                 </button>
             `).join('');
@@ -585,21 +729,21 @@
 
             emptyState.classList.add('hidden');
             grid.innerHTML = filtered.map(p => `
-                <div class="bg-zinc-900 border border-zinc-800/80 rounded-2xl overflow-hidden hover:border-red-900/60 transition-all group flex flex-col justify-between">
+                <div class="bg-zinc-900 border border-zinc-800/80 rounded-2xl overflow-hidden hover:border-zinc-700 transition-all group flex flex-col justify-between">
                     <div>
                         <!-- Image -->
                         <div class="relative aspect-video w-full overflow-hidden bg-zinc-950">
                             <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onerror="this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=400&q=80'">
-                            <span class="absolute top-2 left-2 text-[10px] font-bold px-2 py-0.5 rounded-md bg-zinc-950/80 text-red-400 border border-red-900/50 uppercase tracking-wider backdrop-blur-md">
+                            <span class="absolute top-2 left-2 text-[10px] font-bold px-2 py-0.5 rounded-md bg-zinc-950/80 theme-text border theme-border uppercase tracking-wider backdrop-blur-md">
                                 ${p.category}
                             </span>
-                            ${!p.inStock ? `<div class="absolute inset-0 bg-black/70 backdrop-blur-[2px] flex items-center justify-center"><span class="bg-red-950 text-red-400 border border-red-800 px-3 py-1 rounded-lg text-xs font-bold uppercase">Stok Habis</span></div>` : ''}
+                            ${!p.inStock ? `<div class="absolute inset-0 bg-black/70 backdrop-blur-[2px] flex items-center justify-center"><span class="bg-zinc-950 text-red-400 border border-red-800 px-3 py-1 rounded-lg text-xs font-bold uppercase">Stok Habis</span></div>` : ''}
                         </div>
                         <!-- Content -->
                         <div class="p-3.5 space-y-2">
                             <h4 class="font-bold text-white text-xs sm:text-sm line-clamp-2">${p.name}</h4>
                             <p class="text-zinc-400 text-[11px] line-clamp-2">${p.description || 'Tidak ada deskripsi.'}</p>
-                            <div class="text-red-500 font-extrabold text-sm sm:text-base pt-1">
+                            <div class="theme-text font-extrabold text-sm sm:text-base pt-1">
                                 Rp ${p.price.toLocaleString('id-ID')}
                             </div>
                         </div>
@@ -607,7 +751,7 @@
                     
                     <!-- Actions -->
                     <div class="p-3.5 pt-0 space-y-2">
-                        <button onclick="addToCart('${p.id}')" ${!p.inStock ? 'disabled' : ''} class="w-full py-2 px-3 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 ${p.inStock ? 'bg-red-600 hover:bg-red-700 text-white shadow-md shadow-red-950/50' : 'bg-zinc-800 text-zinc-500 cursor-not-allowed'}">
+                        <button onclick="addToCart('${p.id}')" ${!p.inStock ? 'disabled' : ''} class="w-full py-2 px-3 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 ${p.inStock ? 'theme-btn text-white shadow-md' : 'bg-zinc-800 text-zinc-500 cursor-not-allowed'}">
                             <i class="fa-solid fa-cart-plus"></i> ${p.inStock ? 'Tambah' : 'Habis'}
                         </button>
 
@@ -688,7 +832,7 @@
                             <img src="${item.image}" class="w-12 h-12 object-cover rounded-lg bg-zinc-900">
                             <div>
                                 <h5 class="font-bold text-white">${item.name}</h5>
-                                <p class="text-red-500 font-semibold">Rp ${item.price.toLocaleString('id-ID')}</p>
+                                <p class="theme-text font-semibold">Rp ${item.price.toLocaleString('id-ID')}</p>
                             </div>
                         </div>
                         <div class="flex items-center gap-2">
@@ -879,6 +1023,11 @@
         // SETTINGS MODAL
         function openSettingsModal() {
             document.getElementById('logo-file-input').value = '';
+            document.getElementById('banner-file-input').value = '';
+            document.getElementById('set-theme').value = settings.theme || 'darkred';
+            document.getElementById('set-hero-title').value = settings.heroTitle || '';
+            document.getElementById('set-hero-desc').value = settings.heroDesc || '';
+            document.getElementById('set-banner-url').value = settings.bannerUrl || '';
             document.getElementById('set-logo-url').value = settings.logoUrl || '';
             document.getElementById('set-announcement').value = settings.announcement || '';
             document.getElementById('set-wa').value = settings.waNumber || '';
@@ -897,6 +1046,10 @@
 
         function saveSettings(e) {
             e.preventDefault();
+            settings.theme = document.getElementById('set-theme').value;
+            settings.heroTitle = document.getElementById('set-hero-title').value.trim();
+            settings.heroDesc = document.getElementById('set-hero-desc').value.trim();
+            settings.bannerUrl = document.getElementById('set-banner-url').value.trim();
             settings.logoUrl = document.getElementById('set-logo-url').value.trim();
             settings.announcement = document.getElementById('set-announcement').value.trim();
             settings.waNumber = document.getElementById('set-wa').value.trim();
@@ -910,7 +1063,9 @@
             saveSettingsToStorage();
             applySettingsToUI();
             closeSettingsModal();
-            alert('Semua Pengaturan & Logo Toko berhasil diperbarui!');
+            renderCategories();
+            renderProducts();
+            alert('Semua Pengaturan, Banner & Warna Tema berhasil diperbarui!');
         }
 
         // INIT LOAD
