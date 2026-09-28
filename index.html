@@ -587,7 +587,10 @@ async function processWhatsAppCheckout() {
     cart = [];
     saveCartToStorage();
 
-    // 3. LANGSUNG ALIHKAN KE WHATSAPP TANPA POP-UP BROWSER
+    // 3. MATIKAN PERINGATAN BROWSER LEAVE SITE
+    window.onbeforeunload = null;
+
+    // 4. LANGSUNG ALIHKAN KE WHATSAPP
     const waUrl = `https://wa.me/${settings.waNumber}?text=${encodeURIComponent(text)}`;
     window.location.href = waUrl;
 }
