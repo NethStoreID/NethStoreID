@@ -545,50 +545,52 @@
             `).join('');
         }
 
-        async function processWhatsAppCheckout() {
-            if (cart.length === 0) return alert('Keranjang Anda kosong!');
+async function processWhatsAppCheckout() {
+    if (cart.length === 0) return alert('Keranjang Anda kosong!');
 
-            const btn = document.getElementById('checkout-btn');
-            btn.disabled = true;
-            btn.innerText = 'Memproses Pesanan...';
+    const btn = document.getElementById('checkout-btn');
+    btn.disabled = true;
+    btn.innerText = 'Memproses Pesanan...';
 
-            const note = document.getElementById('checkout-note').value.trim();
-            let total = 0;
-            let itemsSummary = [];
-            let text = `Halo Admin *NethStoreID*, saya ingin memesan:\n\n`;
+    const note = document.getElementById('checkout-note').value.trim();
+    let total = 0;
+    let itemsSummary = [];
+    let text = `Halo Admin *NethStoreID*, saya ingin memesan:\n\n`;
 
-            cart.forEach((item, index) => {
-                const sub = item.price * item.qty;
-                total += sub;
-                itemsSummary.push(`${item.name} (x${item.qty})`);
-                text += `${index + 1}. *${item.name}* (x${item.qty}) - Rp ${sub.toLocaleString('id-ID')}\n`;
+    cart.forEach((item, index) => {
+        const sub = item.price * item.qty;
+        total += sub;
+        itemsSummary.push(`${item.name} (x${item.qty})`);
+        text += `${index + 1}. *${item.name}* (x${item.qty}) - Rp ${sub.toLocaleString('id-ID')}\n`;
+    });
+
+    text += `\n*Total:* Rp ${total.toLocaleString('id-ID')}`;
+    if (note) text += `\n*Catatan/ID:* ${note}`;
+
+    // 1. KIRIM DATA KE GOOGLE SHEETS
+    if (settings.sheetWebhookUrl && settings.sheetWebhookUrl.trim() !== '') {
+        try {
+            await fetch(settings.sheetWebhookUrl, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    items: itemsSummary.join(', '),
+                    total: `Rp ${total.toLocaleString('id-ID')}`,
+                    note: note || '-'
+                })
             });
+        } catch (err) { console.error('Error send sheet:', err); }
+    }
 
-            text += `\n*Total:* Rp ${total.toLocaleString('id-ID')}`;
-            if (note) text += `\n*Catatan/ID:* ${note}`;
+    // 2. KOSONGKAN KERANJANG SEBELUM PINDAH
+    cart = [];
+    saveCartToStorage();
 
-            // SEND AUTO DATA TO GOOGLE SHEET WEBHOOK
-            if (settings.sheetWebhookUrl && settings.sheetWebhookUrl.trim() !== '') {
-                try {
-                    await fetch(settings.sheetWebhookUrl, {
-                        method: 'POST',
-                        mode: 'no-cors',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            items: itemsSummary.join(', '),
-                            total: `Rp ${total.toLocaleString('id-ID')}`,
-                            note: note || '-'
-                        })
-                    });
-                } catch (err) { console.error('Error send sheet:', err); }
-            }
-
-            // REDIRECT TO WHATSAPP
-            const url = `https://wa.me/${settings.waNumber}?text=${encodeURIComponent(text)}`;
-            window.open(url, '_blank');
-            btn.disabled = false;
-            btn.innerHTML = `<i class="fa-brands fa-whatsapp text-lg"></i> Beli Sekarang Via WhatsApp`;
-        }
+    // 3. LANGSUNG ALIHKAN KE WHATSAPP TANPA POP-UP BROWSER
+    const waUrl = `https://wa.me/${settings.waNumber}?text=${encodeURIComponent(text)}`;
+    window.location.href = waUrl;
+}
 
         function applyTheme(themeKey) {
             const t = THEMES[themeKey] || THEMES.darkred;
