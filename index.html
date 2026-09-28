@@ -38,13 +38,20 @@
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-red-900 selection:text-white">
 
+    <!-- ANNOUNCEMENT BANNER -->
+    <div id="announcement-bar" class="bg-red-950 border-b border-red-900/50 text-red-300 text-xs py-1.5 px-4 text-center font-medium hidden">
+        <i class="fa-solid fa-bullhorn text-red-500 mr-1.5"></i>
+        <span id="announcement-text">Selamat datang di NethStoreID!</span>
+    </div>
+
     <!-- HEADER / NAVIGATION -->
     <header class="sticky top-0 z-40 bg-glass border-b border-zinc-800/80">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <!-- Logo & Secret Trigger -->
+            <!-- Logo & Secret Trigger (Ketuk 5x di HP / Ctrl+Shift+A di PC) -->
             <div class="flex items-center gap-3 cursor-pointer select-none" id="logo-trigger" title="NethStoreID">
-                <div class="w-11 h-11 rounded-xl red-gradient flex items-center justify-center border border-red-500/30 shadow-lg shadow-red-950/50">
-                    <i class="fa-solid fa-store text-xl text-white"></i>
+                <div id="header-logo-container" class="w-11 h-11 rounded-xl red-gradient flex items-center justify-center border border-red-500/30 shadow-lg shadow-red-950/50 overflow-hidden">
+                    <i id="header-logo-icon" class="fa-solid fa-store text-xl text-white"></i>
+                    <img id="header-logo-img" src="" alt="Logo" class="w-full h-full object-cover hidden">
                 </div>
                 <div>
                     <h1 class="text-2xl font-extrabold tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-white via-zinc-200 to-red-500">
@@ -63,7 +70,7 @@
                         class="w-full bg-zinc-900/90 border border-zinc-800 text-sm rounded-xl pl-9 pr-4 py-2 text-zinc-200 placeholder-zinc-500 focus:outline-none red-border-glow transition-all">
                 </div>
 
-                <!-- Admin Active Status Indicator (Hidden by default, shown when unlocked) -->
+                <!-- Admin Active Status Badge -->
                 <div id="admin-badge" class="hidden items-center gap-2 bg-red-950/60 border border-red-600/50 px-3 py-1.5 rounded-xl text-xs font-semibold text-red-400">
                     <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
                     <span>ADMIN MODE</span>
@@ -93,7 +100,7 @@
                     <i class="fa-solid fa-plus"></i> Tambah Produk Baru
                 </button>
                 <button onclick="openSettingsModal()" class="bg-zinc-800 hover:bg-zinc-700 text-zinc-200 font-semibold px-3 py-1.5 rounded-lg border border-zinc-700 transition flex items-center gap-1.5">
-                    <i class="fa-solid fa-gear"></i> Pengaturan Toko
+                    <i class="fa-solid fa-gear"></i> Pengaturan & Logo Toko
                 </button>
             </div>
         </div>
@@ -109,16 +116,17 @@
                     <span class="inline-block px-3 py-1 bg-red-950/80 border border-red-500/40 text-red-400 text-xs font-semibold rounded-full uppercase tracking-wider">
                         Official Store
                     </span>
-                    <h2 id="store-title-display" class="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight">
+                    <h2 class="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight">
                         Selamat Datang di <span class="text-red-500">NethStoreID</span>
                     </h2>
-                    <p id="store-desc-display" class="text-zinc-300 text-sm sm:text-base leading-relaxed">
-                        Penyedia kebutuhan digital, top-up game, dan item general terpercaya dengan proses kilat dan harga terjangkau!
+                    <p class="text-zinc-300 text-sm sm:text-base leading-relaxed">
+                        Penyedia kebutuhan digital, item game, dan voucher general terpercaya dengan proses kilat dan harga terjangkau!
                     </p>
                 </div>
                 <div class="w-full md:w-auto flex justify-center">
-                    <div class="w-32 h-32 sm:w-40 sm:w-40 rounded-2xl bg-zinc-950/60 border border-red-500/30 flex items-center justify-center p-4 backdrop-blur-md shadow-inner">
-                        <i class="fa-solid fa-bag-shopping text-6xl text-red-500"></i>
+                    <div id="hero-logo-box" class="w-32 h-32 sm:w-40 sm:h-40 rounded-2xl bg-zinc-950/60 border border-red-500/30 flex items-center justify-center p-2 backdrop-blur-md shadow-inner overflow-hidden">
+                        <i id="hero-logo-icon" class="fa-solid fa-bag-shopping text-6xl text-red-500"></i>
+                        <img id="hero-logo-img" src="" alt="Logo Toko" class="w-full h-full object-cover rounded-xl hidden">
                     </div>
                 </div>
             </div>
@@ -157,16 +165,66 @@
         </div>
     </main>
 
-    <!-- FOOTER -->
-    <footer class="bg-zinc-950 border-t border-zinc-900 py-8 mt-12 text-zinc-500 text-xs">
-        <div class="max-w-7xl mx-auto px-4 text-center space-y-3">
-            <div class="flex justify-center items-center gap-2">
-                <div class="w-6 h-6 rounded-lg red-gradient flex items-center justify-center">
-                    <i class="fa-solid fa-store text-white text-xs"></i>
+    <!-- FOOTER WITH CONTACT & SOSMED -->
+    <footer class="bg-zinc-950 border-t border-zinc-900 py-10 text-zinc-400 text-xs mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+            <!-- Kolom 1: Profil Toko -->
+            <div class="space-y-3">
+                <div class="flex items-center gap-2">
+                    <div id="footer-logo-container" class="w-7 h-7 rounded-lg red-gradient flex items-center justify-center overflow-hidden">
+                        <i id="footer-logo-icon" class="fa-solid fa-store text-white text-xs"></i>
+                        <img id="footer-logo-img" src="" alt="Logo" class="w-full h-full object-cover hidden">
+                    </div>
+                    <span class="text-white font-extrabold text-base">NethStore<span class="text-red-600">ID</span></span>
                 </div>
-                <span class="text-zinc-300 font-bold text-sm">NethStoreID</span>
+                <p class="text-zinc-400 text-xs leading-relaxed">
+                    Penyedia kebutuhan digital, item game, dan voucher terpercaya. Layanan cepat, aman, dan bergaransi resmi.
+                </p>
+                <div class="text-zinc-400 text-[11px] flex items-center gap-1.5">
+                    <i class="fa-regular fa-clock text-red-500"></i>
+                    <span>Jam Operasional: <strong id="display-hours" class="text-zinc-200">09:00 - 22:00 WIB</strong></span>
+                </div>
             </div>
-            <p>© 2026 NethStoreID. Hak Cipta Dilindungi.</p>
+
+            <!-- Kolom 2: Kontak Resmi -->
+            <div class="space-y-3">
+                <h4 class="text-white font-bold text-sm tracking-wider uppercase border-b border-zinc-800 pb-1 inline-block">Hubungi Kami</h4>
+                <ul class="space-y-2 text-xs">
+                    <li>
+                        <a id="display-wa-link" href="#" target="_blank" class="hover:text-red-500 transition flex items-center gap-2">
+                            <i class="fa-brands fa-whatsapp text-emerald-500 text-sm"></i> WhatsApp: <span id="display-wa-text">+62 812-3456-7890</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a id="display-email-link" href="#" class="hover:text-red-500 transition flex items-center gap-2">
+                            <i class="fa-solid fa-envelope text-red-500 text-sm"></i> Email: <span id="display-email-text">support@nethstoreid.com</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Kolom 3: Media Sosial -->
+            <div class="space-y-3">
+                <h4 class="text-white font-bold text-sm tracking-wider uppercase border-b border-zinc-800 pb-1 inline-block">Media Sosial</h4>
+                <p class="text-zinc-400 text-xs">Ikuti media sosial resmi kami untuk update terbaru & promo:</p>
+                <div class="flex items-center gap-3 pt-1">
+                    <a id="display-ig-link" href="#" target="_blank" class="w-9 h-9 rounded-xl bg-zinc-900 border border-zinc-800 hover:border-red-600 hover:bg-red-950/50 flex items-center justify-center text-zinc-300 hover:text-white transition" title="Instagram">
+                        <i class="fa-brands fa-instagram text-base"></i>
+                    </a>
+                    <a id="display-tiktok-link" href="#" target="_blank" class="w-9 h-9 rounded-xl bg-zinc-900 border border-zinc-800 hover:border-red-600 hover:bg-red-950/50 flex items-center justify-center text-zinc-300 hover:text-white transition" title="TikTok">
+                        <i class="fa-brands fa-tiktok text-base"></i>
+                    </a>
+                    <a id="display-telegram-link" href="#" target="_blank" class="w-9 h-9 rounded-xl bg-zinc-900 border border-zinc-800 hover:border-red-600 hover:bg-red-950/50 flex items-center justify-center text-zinc-300 hover:text-white transition" title="Telegram">
+                        <i class="fa-brands fa-telegram text-base"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-zinc-900 mt-8 pt-6 text-center text-zinc-600 text-[11px]">
+            © 2026 NethStoreID. Hak Cipta Dilindungi.
         </div>
     </footer>
 
@@ -225,10 +283,26 @@
                         </select>
                     </div>
                 </div>
-                <div>
-                    <label class="block text-zinc-400 font-semibold mb-1">URL Gambar Produk</label>
-                    <input type="url" id="prod-image" required placeholder="https://example.com/gambar.jpg" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none red-border-glow">
+
+                <!-- IMAGE CHOICE: FILE UPLOAD OR URL -->
+                <div class="space-y-2 border border-zinc-800 p-3 rounded-xl bg-zinc-950/50">
+                    <label class="block text-zinc-300 font-bold mb-1">Foto / Gambar Produk</label>
+                    <div>
+                        <label class="block text-[10px] text-zinc-400 mb-1">Upload dari Galeri HP/PC:</label>
+                        <input type="file" id="prod-file-input" accept="image/*" onchange="handleProductFileUpload(event)" class="w-full text-[11px] text-zinc-400 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-red-950 file:text-red-300 hover:file:bg-red-900 cursor-pointer">
+                    </div>
+                    <div class="text-center text-[10px] text-zinc-600 font-bold uppercase">-- ATAU --</div>
+                    <div>
+                        <label class="block text-[10px] text-zinc-400 mb-1">Masukkan Link URL Gambar:</label>
+                        <input type="url" id="prod-image" placeholder="https://example.com/gambar.jpg" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none red-border-glow">
+                    </div>
+                    <!-- Image Preview -->
+                    <div id="prod-preview-box" class="hidden mt-2 pt-2 border-t border-zinc-800 flex items-center gap-2">
+                        <span class="text-[10px] text-zinc-400">Preview:</span>
+                        <img id="prod-preview-img" src="" class="w-12 h-12 object-cover rounded-lg bg-zinc-900 border border-zinc-700">
+                    </div>
                 </div>
+
                 <div>
                     <label class="block text-zinc-400 font-semibold mb-1">Deskripsi Singkat</label>
                     <textarea id="prod-desc" rows="2" placeholder="Detail singkat tentang produk..." class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none red-border-glow"></textarea>
@@ -241,26 +315,64 @@
         </div>
     </div>
 
-    <!-- MODAL 3: STORE SETTINGS -->
+    <!-- MODAL 3: STORE SETTINGS & LOGO -->
     <div id="settings-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-zinc-900 border border-zinc-800 rounded-2xl w-full max-w-md p-6 space-y-4 shadow-2xl">
+        <div class="bg-zinc-900 border border-zinc-800 rounded-2xl w-full max-w-md p-6 space-y-4 shadow-2xl max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center border-b border-zinc-800 pb-3">
-                <h3 class="font-bold text-white text-base">Pengaturan Toko</h3>
+                <h3 class="font-bold text-white text-base">Pengaturan & Logo Toko</h3>
                 <button onclick="closeSettingsModal()" class="text-zinc-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <form onsubmit="saveSettings(event)" class="space-y-3 text-xs">
+                
+                <!-- LOGO UPLOAD / URL SECTION -->
+                <div class="space-y-2 border border-zinc-800 p-3 rounded-xl bg-zinc-950/50">
+                    <label class="block text-zinc-300 font-bold">Logo Toko</label>
+                    <div>
+                        <label class="block text-[10px] text-zinc-400 mb-1">Upload File Logo dari HP/PC:</label>
+                        <input type="file" id="logo-file-input" accept="image/*" onchange="handleLogoFileUpload(event)" class="w-full text-[11px] text-zinc-400 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-red-950 file:text-red-300 hover:file:bg-red-900 cursor-pointer">
+                    </div>
+                    <div class="text-center text-[10px] text-zinc-600 font-bold uppercase">-- ATAU --</div>
+                    <div>
+                        <label class="block text-[10px] text-zinc-400 mb-1">URL Link Logo Gambar:</label>
+                        <input type="url" id="set-logo-url" placeholder="https://example.com/logo.png" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none red-border-glow">
+                    </div>
+                </div>
+
                 <div>
-                    <label class="block text-zinc-400 font-semibold mb-1">Nomor WhatsApp Admin (Checkout)</label>
-                    <input type="text" id="set-wa" required placeholder="628123456789" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none red-border-glow">
-                    <p class="text-[10px] text-zinc-500 mt-1">Gunakan format angka awal 62 (Contoh: 628123456789)</p>
+                    <label class="block text-zinc-400 font-semibold mb-1">Pesan Pengumuman Bar (Opsional)</label>
+                    <input type="text" id="set-announcement" placeholder="Contoh: Promo Diskon 10% Semua Item Game!" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none red-border-glow">
                 </div>
                 <div>
+                    <label class="block text-zinc-400 font-semibold mb-1">Nomor WhatsApp Admin (Awal 62)</label>
+                    <input type="text" id="set-wa" required placeholder="628123456789" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none red-border-glow">
+                </div>
+                <div>
+                    <label class="block text-zinc-400 font-semibold mb-1">Jam Operasional</label>
+                    <input type="text" id="set-hours" placeholder="09:00 - 22:00 WIB" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none red-border-glow">
+                </div>
+                <div>
+                    <label class="block text-zinc-400 font-semibold mb-1">Email Toko</label>
+                    <input type="email" id="set-email" placeholder="support@nethstoreid.com" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none red-border-glow">
+                </div>
+                <div>
+                    <label class="block text-zinc-400 font-semibold mb-1">Username / Link Instagram</label>
+                    <input type="text" id="set-ig" placeholder="username_instagram" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none red-border-glow">
+                </div>
+                <div>
+                    <label class="block text-zinc-400 font-semibold mb-1">Username / Link TikTok</label>
+                    <input type="text" id="set-tiktok" placeholder="username_tiktok" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none red-border-glow">
+                </div>
+                <div>
+                    <label class="block text-zinc-400 font-semibold mb-1">Username / Link Telegram</label>
+                    <input type="text" id="set-telegram" placeholder="username_telegram" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none red-border-glow">
+                </div>
+                <div class="border-t border-zinc-800 pt-3">
                     <label class="block text-zinc-400 font-semibold mb-1">Ubah PIN Admin Rahasia</label>
                     <input type="password" id="set-pin" required placeholder="PIN Baru" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-white focus:outline-none red-border-glow">
                 </div>
                 <div class="pt-2 flex gap-2">
                     <button type="button" onclick="closeSettingsModal()" class="w-1/2 bg-zinc-800 hover:bg-zinc-700 text-zinc-300 font-semibold py-2.5 rounded-xl">Batal</button>
-                    <button type="submit" class="w-1/2 bg-red-600 hover:bg-red-700 text-white font-semibold py-2.5 rounded-xl">Simpan</button>
+                    <button type="submit" class="w-1/2 bg-red-600 hover:bg-red-700 text-white font-semibold py-2.5 rounded-xl">Simpan Semua</button>
                 </div>
             </form>
         </div>
@@ -303,7 +415,14 @@
         // INITIAL DEFAULT DATA
         const DEFAULT_SETTINGS = {
             waNumber: '6281234567890',
-            adminPin: '1234'
+            adminPin: '1234',
+            hours: '09:00 - 22:00 WIB',
+            email: 'support@nethstoreid.com',
+            ig: '',
+            tiktok: '',
+            telegram: '',
+            logoUrl: '',
+            announcement: 'Promo Spesial! Dapatkan harga termurah untuk setiap produk digital.'
         };
 
         const DEFAULT_PRODUCTS = [
@@ -349,6 +468,91 @@
         function saveProductsToStorage() { localStorage.setItem('neth_products', JSON.stringify(products)); }
         function saveSettingsToStorage() { localStorage.setItem('neth_settings', JSON.stringify(settings)); }
         function saveCartToStorage() { localStorage.setItem('neth_cart', JSON.stringify(cart)); }
+
+        // FILE UPLOAD HELPERS (BASE64)
+        function handleProductFileUpload(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(evt) {
+                    const base64 = evt.target.result;
+                    document.getElementById('prod-image').value = base64;
+                    document.getElementById('prod-preview-img').src = base64;
+                    document.getElementById('prod-preview-box').classList.remove('hidden');
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function handleLogoFileUpload(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(evt) {
+                    const base64 = evt.target.result;
+                    document.getElementById('set-logo-url').value = base64;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // RENDER LOGO & SETTINGS TO UI
+        function applySettingsToUI() {
+            // Announcement
+            const annBar = document.getElementById('announcement-bar');
+            const annText = document.getElementById('announcement-text');
+            if (settings.announcement && settings.announcement.trim() !== '') {
+                annText.innerText = settings.announcement;
+                annBar.classList.remove('hidden');
+            } else {
+                annBar.classList.add('hidden');
+            }
+
+            // Logo Rendering
+            const hIcon = document.getElementById('header-logo-icon');
+            const hImg = document.getElementById('header-logo-img');
+            const fIcon = document.getElementById('footer-logo-icon');
+            const fImg = document.getElementById('footer-logo-img');
+            const heroIcon = document.getElementById('hero-logo-icon');
+            const heroImg = document.getElementById('hero-logo-img');
+
+            if (settings.logoUrl && settings.logoUrl.trim() !== '') {
+                hImg.src = settings.logoUrl;
+                fImg.src = settings.logoUrl;
+                heroImg.src = settings.logoUrl;
+
+                hIcon.classList.add('hidden');
+                fIcon.classList.add('hidden');
+                heroIcon.classList.add('hidden');
+
+                hImg.classList.remove('hidden');
+                fImg.classList.remove('hidden');
+                heroImg.classList.remove('hidden');
+            } else {
+                hIcon.classList.remove('hidden');
+                fIcon.classList.remove('hidden');
+                heroIcon.classList.remove('hidden');
+
+                hImg.classList.add('hidden');
+                fImg.classList.add('hidden');
+                heroImg.classList.add('hidden');
+            }
+
+            // Jam Operasional & Email
+            document.getElementById('display-hours').innerText = settings.hours || '09:00 - 22:00 WIB';
+            document.getElementById('display-email-text').innerText = settings.email || 'support@nethstoreid.com';
+            document.getElementById('display-email-link').href = `mailto:${settings.email || 'support@nethstoreid.com'}`;
+
+            // WA Link
+            document.getElementById('display-wa-text').innerText = `+${settings.waNumber}`;
+            document.getElementById('display-wa-link').href = `https://wa.me/${settings.waNumber}`;
+
+            // Sosmed Links
+            const formatUrl = (val, base) => val ? (val.startsWith('http') ? val : `${base}${val}`) : '#';
+            document.getElementById('display-ig-link').href = formatUrl(settings.ig, 'https://instagram.com/');
+            document.getElementById('display-tiktok-link').href = formatUrl(settings.tiktok, 'https://tiktok.com/@');
+            document.getElementById('display-telegram-link').href = formatUrl(settings.telegram, 'https://t.me/');
+        }
 
         // RENDER PRODUCTS & CATEGORIES
         function renderCategories() {
@@ -602,6 +806,8 @@
         // PRODUCT MODAL (ADD / EDIT)
         function openProductModal(prod = null) {
             document.getElementById('product-modal').classList.remove('hidden');
+            document.getElementById('prod-file-input').value = '';
+            
             if (prod) {
                 document.getElementById('product-modal-title').innerText = 'Edit Produk';
                 document.getElementById('prod-id').value = prod.id;
@@ -611,10 +817,18 @@
                 document.getElementById('prod-stock').value = prod.inStock.toString();
                 document.getElementById('prod-image').value = prod.image;
                 document.getElementById('prod-desc').value = prod.description || '';
+
+                if (prod.image) {
+                    document.getElementById('prod-preview-img').src = prod.image;
+                    document.getElementById('prod-preview-box').classList.remove('hidden');
+                } else {
+                    document.getElementById('prod-preview-box').classList.add('hidden');
+                }
             } else {
                 document.getElementById('product-modal-title').innerText = 'Tambah Produk Baru';
                 document.getElementById('product-form').reset();
                 document.getElementById('prod-id').value = '';
+                document.getElementById('prod-preview-box').classList.add('hidden');
             }
         }
 
@@ -664,8 +878,16 @@
 
         // SETTINGS MODAL
         function openSettingsModal() {
-            document.getElementById('set-wa').value = settings.waNumber;
-            document.getElementById('set-pin').value = settings.adminPin;
+            document.getElementById('logo-file-input').value = '';
+            document.getElementById('set-logo-url').value = settings.logoUrl || '';
+            document.getElementById('set-announcement').value = settings.announcement || '';
+            document.getElementById('set-wa').value = settings.waNumber || '';
+            document.getElementById('set-hours').value = settings.hours || '';
+            document.getElementById('set-email').value = settings.email || '';
+            document.getElementById('set-ig').value = settings.ig || '';
+            document.getElementById('set-tiktok').value = settings.tiktok || '';
+            document.getElementById('set-telegram').value = settings.telegram || '';
+            document.getElementById('set-pin').value = settings.adminPin || '';
             document.getElementById('settings-modal').classList.remove('hidden');
         }
 
@@ -675,14 +897,24 @@
 
         function saveSettings(e) {
             e.preventDefault();
+            settings.logoUrl = document.getElementById('set-logo-url').value.trim();
+            settings.announcement = document.getElementById('set-announcement').value.trim();
             settings.waNumber = document.getElementById('set-wa').value.trim();
+            settings.hours = document.getElementById('set-hours').value.trim();
+            settings.email = document.getElementById('set-email').value.trim();
+            settings.ig = document.getElementById('set-ig').value.trim();
+            settings.tiktok = document.getElementById('set-tiktok').value.trim();
+            settings.telegram = document.getElementById('set-telegram').value.trim();
             settings.adminPin = document.getElementById('set-pin').value.trim();
+            
             saveSettingsToStorage();
+            applySettingsToUI();
             closeSettingsModal();
-            alert('Pengaturan toko berhasil diperbarui!');
+            alert('Semua Pengaturan & Logo Toko berhasil diperbarui!');
         }
 
         // INIT LOAD
+        applySettingsToUI();
         renderCategories();
         renderProducts();
         updateCartBadge();
