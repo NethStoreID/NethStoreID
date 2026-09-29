@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NethStoreID - Retro Arcade General Store</title>
+    <title>NethStoreID - General Store</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Retro Fonts -->
@@ -12,11 +12,12 @@
     
     <style id="theme-style">
         :root {
-            --primary-red: #dc2626;
-            --dark-red: #7f1d1d;
-            --retro-bg: #0d0a12;
-            --retro-card: #161124;
-            --neon-glow: rgba(220, 38, 38, 0.6);
+            --primary-red: #990000;
+            --dark-red: #4a0000;
+            --neon-red: #ff2a2a;
+            --retro-bg: #050505;
+            --retro-card: #0f0a0a;
+            --neon-glow: rgba(255, 42, 42, 0.5);
         }
 
         body { 
@@ -24,29 +25,30 @@
             background-color: var(--retro-bg); 
             color: #ffffff;
             background-image: 
-                radial-gradient(circle at 50% 0%, rgba(127, 29, 29, 0.3) 0%, transparent 70%),
-                linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
+                radial-gradient(circle at 50% 0%, rgba(153, 0, 0, 0.35) 0%, transparent 75%),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
             background-size: 100% 100%, 100% 24px;
         }
 
         .font-pixel { font-family: 'Press Start 2P', cursive; }
 
-        /* EFEK RETRO BUTTON & CARD */
+        /* EFEK RETRO BUTTON & CARD (DARK RED & BLACK) */
         .retro-box {
             background-color: var(--retro-card);
-            border: 2px solid #3f2d54;
+            border: 2px solid #4a0000;
             box-shadow: 4px 4px 0px #000000;
         }
 
         .retro-btn {
-            background: linear-gradient(180deg, #dc2626 0%, #991b1b 100%);
-            border: 2px solid #fca5a5;
+            background: linear-gradient(180deg, #b30000 0%, #660000 100%);
+            border: 2px solid #ff4d4d;
             box-shadow: 4px 4px 0px #000000;
             transition: all 0.1s ease;
         }
         .retro-btn:hover {
             transform: translate(-2px, -2px);
             box-shadow: 6px 6px 0px #000000;
+            background: linear-gradient(180deg, #cc0000 0%, #800000 100%);
         }
         .retro-btn:active {
             transform: translate(2px, 2px);
@@ -54,7 +56,7 @@
         }
 
         .retro-glow {
-            text-shadow: 0 0 8px var(--neon-glow);
+            text-shadow: 0 0 10px var(--neon-glow);
         }
 
         /* CRT SCANLINES EFFECT */
@@ -66,11 +68,11 @@
             display: block;
             position: absolute;
             top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.35) 50%);
             background-size: 100% 4px;
             z-index: 20;
             pointer-events: none;
-            opacity: 0.6;
+            opacity: 0.7;
         }
 
         .hide-scrollbar::-webkit-scrollbar { display: none; }
@@ -79,11 +81,11 @@
 </head>
 <body class="min-h-screen flex flex-col justify-between scanlines selection:bg-red-900 selection:text-white">
 
-    <!-- HEADER RETRO -->
-    <header class="sticky top-0 z-40 bg-purple-950/90 backdrop-blur-md border-b-4 border-red-600">
+    <!-- HEADER RETRO DARK RED & BLACK -->
+    <header class="sticky top-0 z-40 bg-black/95 backdrop-blur-md border-b-4 border-red-700">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             <div class="flex items-center gap-3 cursor-pointer select-none" id="logo-trigger" title="NethStoreID">
-                <div id="header-logo-container" class="w-12 h-12 rounded-xl bg-red-950 border-2 border-red-500 flex items-center justify-center shadow-[3px_3px_0px_#000] overflow-hidden">
+                <div id="header-logo-container" class="w-12 h-12 rounded-xl bg-red-950 border-2 border-red-600 flex items-center justify-center shadow-[3px_3px_0px_#000] overflow-hidden">
                     <i id="header-logo-icon" class="fa-solid fa-gamepad text-2xl text-red-500"></i>
                     <img id="header-logo-img" src="" alt="Logo" class="w-full h-full object-cover hidden">
                 </div>
@@ -91,7 +93,7 @@
                     <h1 class="text-lg sm:text-xl font-pixel text-white tracking-widest retro-glow">
                         NETHSTORE<span class="text-red-500">ID</span>
                     </h1>
-                    <p class="text-[10px] text-zinc-400 font-bold uppercase tracking-wider">★ Retro Arcade Store ★</p>
+                    <p class="text-[10px] text-red-400 font-bold uppercase tracking-wider">★ Retro Arcade Store ★</p>
                 </div>
             </div>
 
@@ -99,10 +101,10 @@
                 <div class="hidden md:flex items-center relative w-64">
                     <i class="fa-solid fa-search absolute left-3 text-red-500 text-sm"></i>
                     <input type="text" id="search-input" onkeyup="filterProducts()" placeholder="Cari item..." 
-                        class="w-full bg-black/60 border-2 border-purple-900 text-sm rounded-lg pl-9 pr-4 py-1.5 text-zinc-200 focus:outline-none focus:border-red-500 font-bold">
+                        class="w-full bg-black border-2 border-red-950 text-sm rounded-lg pl-9 pr-4 py-1.5 text-zinc-200 focus:outline-none focus:border-red-600 font-bold">
                 </div>
 
-                <div id="admin-badge" class="hidden items-center gap-2 bg-zinc-900 border-2 border-red-500 px-3 py-1 rounded-lg text-xs font-bold text-red-400">
+                <div id="admin-badge" class="hidden items-center gap-2 bg-black border-2 border-red-600 px-3 py-1 rounded-lg text-xs font-bold text-red-400">
                     <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                     <span>ADMIN MODE</span>
                     <button onclick="lockAdmin()" class="ml-1 text-zinc-400 hover:text-white"><i class="fa-solid fa-power-off"></i></button>
@@ -110,7 +112,7 @@
 
                 <button onclick="toggleCartModal()" class="relative retro-btn px-3.5 py-2 rounded-lg text-white font-bold flex items-center justify-center">
                     <i class="fa-solid fa-cart-shopping text-base"></i>
-                    <span id="cart-count" class="absolute -top-2 -right-2 bg-yellow-400 text-black text-[10px] font-pixel rounded-md w-5 h-5 flex items-center justify-center border-2 border-black">0</span>
+                    <span id="cart-count" class="absolute -top-2 -right-2 bg-red-600 text-white text-[10px] font-pixel rounded-md w-5 h-5 flex items-center justify-center border-2 border-black">0</span>
                 </button>
             </div>
         </div>
@@ -118,11 +120,11 @@
 
     <!-- MAIN CONTENT -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full">
-        <!-- Hero Banner Retro Arcade -->
-        <section class="relative rounded-2xl overflow-hidden mb-8 border-4 border-red-600 bg-gradient-to-r from-red-950 via-purple-950 to-black p-6 sm:p-10 shadow-[6px_6px_0px_#000]">
+        <!-- Hero Banner Dark Red & Crimson -->
+        <section class="relative rounded-2xl overflow-hidden mb-8 border-4 border-red-700 bg-gradient-to-r from-red-950 via-black to-red-950 p-6 sm:p-10 shadow-[6px_6px_0px_#000]">
             <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
                 <div class="space-y-3 text-center md:text-left max-w-xl">
-                    <span class="inline-block px-3 py-1 bg-red-600 border border-white text-white text-[10px] font-pixel rounded uppercase tracking-widest shadow-[2px_2px_0px_#000]">
+                    <span class="inline-block px-3 py-1 bg-red-800 border border-red-400 text-white text-[10px] font-pixel rounded uppercase tracking-widest shadow-[2px_2px_0px_#000]">
                         PRESS START
                     </span>
                     <h2 class="text-2xl sm:text-4xl font-pixel text-white leading-relaxed retro-glow">
@@ -132,37 +134,37 @@
                         Penyedia kebutuhan game digital, Robux, Voucher, & Premium Account terlengkap dengan pelayanan kilat!
                     </p>
                 </div>
-                <div class="w-32 h-32 sm:w-36 sm:h-36 rounded-2xl bg-black/60 border-2 border-red-500 flex items-center justify-center p-2 shadow-[4px_4px_0px_#000] overflow-hidden">
+                <div class="w-32 h-32 sm:w-36 sm:h-36 rounded-2xl bg-black border-2 border-red-600 flex items-center justify-center p-2 shadow-[4px_4px_0px_#000] overflow-hidden">
                     <i id="hero-logo-icon" class="fa-solid fa-gamepad text-6xl text-red-500"></i>
                     <img id="hero-logo-img" src="" alt="Logo Toko" class="w-full h-full object-cover rounded-xl hidden">
                 </div>
             </div>
         </section>
 
-        <!-- 3 MENU UTAMA: PRICELIST, RULES, TESTIMONI (RETRO STYLE) -->
+        <!-- 3 MENU UTAMA: PRICELIST, RULES, TESTIMONI (DARK RED & BLACK STYLE) -->
         <section class="grid grid-cols-3 gap-3 sm:gap-4 mb-8">
             <a href="pricelist.html" class="retro-box p-4 rounded-xl flex flex-col items-center justify-center text-center transition hover:border-red-500 group">
-                <div class="w-10 h-10 rounded-lg bg-red-950 border border-red-500 flex items-center justify-center mb-2 text-red-400 group-hover:scale-110 transition">
+                <div class="w-10 h-10 rounded-lg bg-red-950 border border-red-600 flex items-center justify-center mb-2 text-red-400 group-hover:scale-110 transition">
                     <i class="fa-solid fa-list-check text-lg"></i>
                 </div>
                 <span class="text-xs sm:text-sm font-pixel text-white">PRICELIST</span>
-                <span class="text-[10px] text-zinc-400 hidden sm:inline font-bold mt-1">Daftar Harga</span>
+                <span class="text-[10px] text-red-400 hidden sm:inline font-bold mt-1">Daftar Harga</span>
             </a>
 
             <a href="rules.html" class="retro-box p-4 rounded-xl flex flex-col items-center justify-center text-center transition hover:border-red-500 group">
-                <div class="w-10 h-10 rounded-lg bg-red-950 border border-red-500 flex items-center justify-center mb-2 text-red-400 group-hover:scale-110 transition">
+                <div class="w-10 h-10 rounded-lg bg-red-950 border border-red-600 flex items-center justify-center mb-2 text-red-400 group-hover:scale-110 transition">
                     <i class="fa-solid fa-scroll text-lg"></i>
                 </div>
                 <span class="text-xs sm:text-sm font-pixel text-white">RULES</span>
-                <span class="text-[10px] text-zinc-400 hidden sm:inline font-bold mt-1">Aturan Toko</span>
+                <span class="text-[10px] text-red-400 hidden sm:inline font-bold mt-1">Aturan Toko</span>
             </a>
 
             <a href="testimoni.html" class="retro-box p-4 rounded-xl flex flex-col items-center justify-center text-center transition hover:border-red-500 group">
-                <div class="w-10 h-10 rounded-lg bg-red-950 border border-red-500 flex items-center justify-center mb-2 text-red-400 group-hover:scale-110 transition">
+                <div class="w-10 h-10 rounded-lg bg-red-950 border border-red-600 flex items-center justify-center mb-2 text-red-400 group-hover:scale-110 transition">
                     <i class="fa-solid fa-star text-lg"></i>
                 </div>
                 <span class="text-xs sm:text-sm font-pixel text-white">TESTI</span>
-                <span class="text-[10px] text-zinc-400 hidden sm:inline font-bold mt-1">Bukti Order</span>
+                <span class="text-[10px] text-red-400 hidden sm:inline font-bold mt-1">Bukti Order</span>
             </a>
         </section>
 
@@ -170,23 +172,23 @@
         <div class="flex items-center gap-2 overflow-x-auto pb-4 mb-6 hide-scrollbar" id="category-pills"></div>
 
         <!-- Products Grid -->
-        <div class="flex items-center justify-between mb-6 border-b-2 border-purple-900 pb-3">
+        <div class="flex items-center justify-between mb-6 border-b-2 border-red-950 pb-3">
             <h3 class="text-lg font-pixel text-white flex items-center gap-2">
                 <i class="fa-solid fa-boxes-stacked text-red-500"></i> KATALOG ITEM
             </h3>
-            <span id="product-count" class="text-xs font-bold text-zinc-400">0 Items</span>
+            <span id="product-count" class="text-xs font-bold text-red-400">0 Items</span>
         </div>
 
         <div id="products-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6"></div>
 
         <div id="empty-state" class="hidden py-16 text-center space-y-3">
-            <i class="fa-solid fa-ghost text-5xl text-purple-900 animate-bounce"></i>
+            <i class="fa-solid fa-ghost text-5xl text-red-950 animate-bounce"></i>
             <p class="text-zinc-500 font-bold">Item Tidak Ditemukan!</p>
         </div>
     </main>
 
-    <!-- FOOTER RETRO -->
-    <footer class="bg-black border-t-4 border-purple-900 py-8 text-zinc-400 text-xs mt-12">
+    <!-- FOOTER DARK RED & BLACK -->
+    <footer class="bg-black border-t-4 border-red-950 py-8 text-zinc-400 text-xs mt-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8">
             <div class="space-y-3">
                 <div class="flex items-center gap-2">
@@ -202,38 +204,38 @@
             <div class="space-y-3">
                 <h4 class="text-white font-pixel text-xs tracking-wider border-b-2 border-red-600 pb-1 inline-block">CONTACT US</h4>
                 <ul class="space-y-2 text-xs font-semibold">
-                    <li><a id="display-wa-link" href="#" target="_blank" class="hover:text-white transition flex items-center gap-2"><i class="fa-brands fa-whatsapp text-emerald-400"></i> WhatsApp: <span id="display-wa-text">+62 877-9608-3335</span></a></li>
-                    <li><a id="display-email-link" href="#" class="hover:text-white transition flex items-center gap-2"><i class="fa-solid fa-envelope text-red-400"></i> Email: <span id="display-email-text">nethstoreid@gmail.com</span></a></li>
+                    <li><a id="display-wa-link" href="#" target="_blank" class="hover:text-white transition flex items-center gap-2"><i class="fa-brands fa-whatsapp text-emerald-500"></i> WhatsApp: <span id="display-wa-text">+62 877-9608-3335</span></a></li>
+                    <li><a id="display-email-link" href="#" class="hover:text-white transition flex items-center gap-2"><i class="fa-solid fa-envelope text-red-500"></i> Email: <span id="display-email-text">nethstoreid@gmail.com</span></a></li>
                 </ul>
             </div>
 
             <div class="space-y-3">
                 <h4 class="text-white font-pixel text-xs tracking-wider border-b-2 border-red-600 pb-1 inline-block">SOCIAL MEDIA</h4>
                 <div class="flex items-center gap-3 pt-1">
-                    <a id="display-ig-link" href="#" target="_blank" class="w-9 h-9 rounded-lg bg-zinc-900 border-2 border-purple-900 flex items-center justify-center text-zinc-300 hover:text-white hover:border-red-500"><i class="fa-brands fa-instagram text-base"></i></a>
-                    <a id="display-tiktok-link" href="#" target="_blank" class="w-9 h-9 rounded-lg bg-zinc-900 border-2 border-purple-900 flex items-center justify-center text-zinc-300 hover:text-white hover:border-red-500"><i class="fa-brands fa-tiktok text-base"></i></a>
-                    <a id="display-telegram-link" href="#" target="_blank" class="w-9 h-9 rounded-lg bg-zinc-900 border-2 border-purple-900 flex items-center justify-center text-zinc-300 hover:text-white hover:border-red-500"><i class="fa-brands fa-telegram text-base"></i></a>
+                    <a id="display-ig-link" href="#" target="_blank" class="w-9 h-9 rounded-lg bg-black border-2 border-red-950 flex items-center justify-center text-zinc-300 hover:text-white hover:border-red-600"><i class="fa-brands fa-instagram text-base"></i></a>
+                    <a id="display-tiktok-link" href="#" target="_blank" class="w-9 h-9 rounded-lg bg-black border-2 border-red-950 flex items-center justify-center text-zinc-300 hover:text-white hover:border-red-600"><i class="fa-brands fa-tiktok text-base"></i></a>
+                    <a id="display-telegram-link" href="#" target="_blank" class="w-9 h-9 rounded-lg bg-black border-2 border-red-950 flex items-center justify-center text-zinc-300 hover:text-white hover:border-red-600"><i class="fa-brands fa-telegram text-base"></i></a>
                 </div>
             </div>
         </div>
     </footer>
 
     <!-- MODAL SHOPPING CART RETRO -->
-    <div id="cart-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div id="cart-modal" class="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
         <div class="retro-box rounded-2xl w-full max-w-lg p-6 space-y-4 flex flex-col max-h-[90vh]">
-            <div class="flex justify-between items-center border-b-2 border-purple-900 pb-3">
+            <div class="flex justify-between items-center border-b-2 border-red-950 pb-3">
                 <h3 class="font-pixel text-white text-sm flex items-center gap-2"><i class="fa-solid fa-cart-shopping text-red-500"></i> KERANJANG</h3>
                 <button onclick="toggleCartModal()" class="text-zinc-400 hover:text-white text-lg"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div id="cart-items-list" class="flex-grow overflow-y-auto space-y-3 pr-1 text-xs font-semibold"></div>
-            <div class="border-t-2 border-purple-900 pt-3 space-y-3 text-xs">
+            <div class="border-t-2 border-red-950 pt-3 space-y-3 text-xs">
                 <div class="flex justify-between items-center text-sm font-bold">
                     <span class="text-zinc-400">Total Pembayaran:</span>
-                    <span id="cart-total-price" class="text-red-400 font-pixel text-base">Rp 0</span>
+                    <span id="cart-total-price" class="text-red-500 font-pixel text-base">Rp 0</span>
                 </div>
                 <div>
                     <label class="block text-zinc-400 font-semibold mb-1">Catatan / Username (Opsional)</label>
-                    <input type="text" id="checkout-note" placeholder="Username Game / ID Akun" class="w-full bg-black border-2 border-purple-900 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-red-500 font-bold">
+                    <input type="text" id="checkout-note" placeholder="Username Game / ID Akun" class="w-full bg-black border-2 border-red-950 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-red-600 font-bold">
                 </div>
                 <button id="checkout-btn" onclick="processWhatsAppCheckout()" class="w-full retro-btn text-white font-pixel text-xs py-3 rounded-lg transition shadow-lg">
                     ORDER VIA WHATSAPP
@@ -291,12 +293,12 @@
             list.innerHTML = cart.map(item => {
                 total += item.price * item.qty;
                 return `
-                    <div class="flex items-center justify-between bg-black/60 p-3 rounded-lg border border-purple-900">
+                    <div class="flex items-center justify-between bg-black p-3 rounded-lg border border-red-950">
                         <div>
                             <p class="font-bold text-white">${item.name}</p>
-                            <p class="text-red-400 font-bold text-xs">Rp ${item.price.toLocaleString('id-ID')}</p>
+                            <p class="text-red-500 font-bold text-xs">Rp ${item.price.toLocaleString('id-ID')}</p>
                         </div>
-                        <span class="font-pixel text-xs text-yellow-400">x${item.qty}</span>
+                        <span class="font-pixel text-xs text-red-400">x${item.qty}</span>
                     </div>
                 `;
             }).join('');
@@ -307,7 +309,7 @@
             const categories = ['Semua Produk', ...new Set(products.map(p => p.category))];
             const container = document.getElementById('category-pills');
             container.innerHTML = categories.map(cat => `
-                <button onclick="selectCategory('${cat}')" class="px-4 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap border-2 ${cat === selectedCategory ? 'bg-red-600 border-white text-white' : 'bg-black border-purple-900 text-zinc-400'}">
+                <button onclick="selectCategory('${cat}')" class="px-4 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap border-2 ${cat === selectedCategory ? 'bg-red-700 border-white text-white' : 'bg-black border-red-950 text-zinc-400'}">
                     ${cat}
                 </button>
             `).join('');
@@ -324,9 +326,9 @@
                     <div>
                         <img src="${p.image}" class="w-full aspect-video object-cover">
                         <div class="p-3 space-y-1">
-                            <span class="text-[9px] font-pixel text-red-400 uppercase">${p.category}</span>
+                            <span class="text-[9px] font-pixel text-red-500 uppercase">${p.category}</span>
                             <h4 class="font-bold text-white text-xs sm:text-sm line-clamp-1">${p.name}</h4>
-                            <p class="text-red-400 font-extrabold text-sm">Rp ${p.price.toLocaleString('id-ID')}</p>
+                            <p class="text-red-500 font-extrabold text-sm">Rp ${p.price.toLocaleString('id-ID')}</p>
                         </div>
                     </div>
                     <div class="p-3 pt-0">
