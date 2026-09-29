@@ -285,28 +285,66 @@
 
         function toggleCartModal() { document.getElementById('cart-modal').classList.toggle('hidden'); renderCartItems(); }
 
-        function renderCartItems() {
-            const list = document.getElementById('cart-items-list');
-            if (cart.length === 0) {
-                list.innerHTML = `<div class="text-center py-6 text-zinc-500 font-bold">Keranjang Kosong</div>`;
-                document.getElementById('cart-total-price').innerText = `Rp 0`;
-                return;
-            }
-            let total = 0;
-            list.innerHTML = cart.map(item => {
-                total += item.price * item.qty;
-                return `
-                    <div class="flex items-center justify-between bg-black p-3 rounded-lg border border-red-950">
-                        <div>
-                            <p class="font-bold text-white">${item.name}</p>
-                            <p class="text-red-500 font-bold text-xs">Rp ${item.price.toLocaleString('id-ID')}</p>
-                        </div>
-                        <span class="font-pixel text-xs text-red-400">x${item.qty}</span>
-                    </div>
-                `;
-            }).join('');
-            document.getElementById('cart-total-price').innerText = `Rp ${total.toLocaleString('id-ID')}`;
+        function increaseCartQty(id) {
+    const item = cart.find(i => i.id === id);
+    if (item) {
+        item.qty += 1;
+        saveCartToStorage();
+        renderCartItems();
+    }
+}
+
+function decreaseCartQty(id) {
+    const itemIndex = cart.findIndex(i => i.id === id);
+    if (itemIndex !== -1) {
+        if (cart[itemIndex].qty > 1) {
+            cart[itemIndex].qty -= 1;
+        } else {
+            cart.splice(itemIndex, 1);
         }
+        saveCartToStorage();
+        renderCartItems();
+    }
+}
+
+function removeCartItem(id) {
+    cart = cart.filter(i => i.id !== id);
+    saveCartToStorage();
+    renderCartItems();
+}
+
+function renderCartItems() {
+    const list = document.getElementById('cart-items-list');
+    if (cart.length === 0) {
+        list.innerHTML = `<div class="text-center py-6 text-zinc-500 font-bold">Keranjang Kosong</div>`;
+        document.getElementById('cart-total-price').innerText = `Rp 0`;
+        return;
+    }
+    let total = 0;
+    list.innerHTML = cart.map(item => {
+        const subtotal = item.price * item.qty;
+        total += subtotal;
+        return `
+            <div class="flex items-center justify-between bg-black p-3 rounded-lg border border-red-950">
+                <div class="space-y-0.5">
+                    <p class="font-bold text-white text-xs sm:text-sm">${item.name}</p>
+                    <p class="text-red-500 font-bold text-xs">Rp ${item.price.toLocaleString('id-ID')}</p>
+                </div>
+                <div class="flex items-center gap-2">
+                    <div class="flex items-center border border-red-900 rounded bg-red-950/40 overflow-hidden">
+                        <button onclick="decreaseCartQty('${item.id}')" class="px-2 py-0.5 text-zinc-300 hover:text-white hover:bg-red-800 font-bold transition text-xs">-</button>
+                        <span class="px-2.5 text-xs font-pixel text-white">${item.qty}</span>
+                        <button onclick="increaseCartQty('${item.id}')" class="px-2 py-0.5 text-zinc-300 hover:text-white hover:bg-red-800 font-bold transition text-xs">+</button>
+                    </div>
+                    <button onclick="removeCartItem('${item.id}')" class="text-zinc-500 hover:text-red-500 text-xs px-1.5 py-1" title="Hapus">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                </div>
+            </div>
+        `;
+    }).join('');
+    document.getElementById('cart-total-price').innerText = `Rp ${total.toLocaleString('id-ID')}`;
+}
 
         function renderCategoryPills() {
             const categories = ['Semua Produk', ...new Set(products.map(p => p.category))];
